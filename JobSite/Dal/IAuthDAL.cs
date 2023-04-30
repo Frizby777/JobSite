@@ -1,7 +1,7 @@
 ﻿using System;
 using JobSite.DAL.Models;
 
-namespace JobSite.DAL.Auth
+namespace JobSite.DAL
 {
     public interface IAuthDAL
     {

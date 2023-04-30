@@ -4,36 +4,36 @@ using Dapper;
 using System.Data.SqlClient;
 using JobSite.DAL.Models;
 
-namespace JobSite.DAL.Auth
+namespace JobSite.DAL
 {
     public class AuthDAL : IAuthDAL
     {
         public async Task<UserModel> GetUser(int id)
         {
-            using (IDbConnection connection = new SqlConnection(DbHalper.ConnectionString))
+            using (IDbConnection connection = new SqlConnection(DbHelper.ConnectionString))
             {
                 connection.Open();
 
                 return await connection.QueryFirstOrDefaultAsync<UserModel>(@"SELECT UserId, Email, Password, Salt, Status
                                                                             FROM AppUser 
-                                                                            WHERE UserId = @id", new { id = id }) ?? new UserModel();
+                                                                            WHERE UserId = @id", new { id }) ?? new UserModel();
             }
         }
 
         public async Task<UserModel> GetUser(string email)
         {
-            using (IDbConnection connection = new SqlConnection(DbHalper.ConnectionString))
+            using (IDbConnection connection = new SqlConnection(DbHelper.ConnectionString))
             {
                 connection.Open();
                 return await connection.QueryFirstOrDefaultAsync<UserModel>(@"SELECT UserId, Email, Password, Salt, Status
                                                                             FROM AppUser 
-                                                                            WHERE Email = @email", new { email = email }) ?? new UserModel(); ;
+                                                                            WHERE Email = @email", new { email }) ?? new UserModel(); ;
             }
         }
 
         public async Task<int> CreateUser(UserModel model)
         {
-            using (IDbConnection connection = new SqlConnection(DbHalper.ConnectionString))
+            using (IDbConnection connection = new SqlConnection(DbHelper.ConnectionString))
             {
                 connection.Open();
                 string query = @"INSERT INTO AppUser (Email, Password, Salt, Status)
