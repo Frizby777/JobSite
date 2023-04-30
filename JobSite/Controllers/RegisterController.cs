@@ -26,8 +26,10 @@ namespace JobSite.Controllers
         public IActionResult Index(RegisterViewModel model)
         {
             if (ModelState.IsValid)
+            {
                 authBL.CreateUser(AuthMapper.MapRegisterViewModelToUserModel(model));
-
+                return Redirect("/");
+            }
             return View("Index", model);
         }
     }
