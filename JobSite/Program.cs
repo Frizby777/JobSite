@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<JobSite.BL.Auth.IAuthBL, JobSite.BL.Auth.AuthBL>();
+builder.Services.AddSingleton<JobSite.BL.Auth.IEncrypt, JobSite.BL.Auth.Encrypt>();
 builder.Services.AddSingleton<JobSite.DAL.IAuthDAL, JobSite.DAL.AuthDAL>();
 
 var app = builder.Build();
