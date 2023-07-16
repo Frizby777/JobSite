@@ -7,6 +7,6 @@ namespace JobSite.DAL
     {
         Task<UserModel> GetUser(int id);
         Task<UserModel> GetUser(string email);
-        Task<int> CreateUser(UserModel model);
+        int CreateUser(UserModel model);
     }
 }
