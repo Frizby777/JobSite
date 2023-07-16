@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using JobSite.DAL;
 using JobSite.DAL.Models;
 
@@ -39,6 +40,14 @@ namespace JobSite.BL.Auth
                 return user.UserId ?? 0;
             }
             return 0;
+        }
+
+        public async Task<ValidationResult?> ValidateEmail(string email)
+        {
+            UserModel user = await authDal.GetUser(email);
+            if(user.UserId != null)
+                return new ValidationResult("Email уже существует");
+            return null;
         }
     }
 }
