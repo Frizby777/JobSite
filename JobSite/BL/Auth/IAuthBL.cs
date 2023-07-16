@@ -2,6 +2,7 @@
 {
     public interface IAuthBL
     {
-        int CreateUser(JobSite.DAL.Models.UserModel user);
+        Task<int> CreateUser(JobSite.DAL.Models.UserModel user);
+        Task<int> Authenticate(string email, string password, bool rememberMe);
     }
 }
