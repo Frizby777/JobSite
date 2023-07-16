@@ -31,14 +31,15 @@ namespace JobSite.DAL
             }
         }
 
-        public async Task<int> CreateUser(UserModel model)
+        public int CreateUser(UserModel model)
         {
             using (IDbConnection connection = new SqlConnection(DbHelper.ConnectionString))
             {
                 connection.Open();
                 string query = @"INSERT INTO AppUser (Email, Password, Salt, Status)
-                                VALUES (@Email, @Password, @Salt, @Status)";
-                return await connection.ExecuteAsync(query, model);
+                                VALUES (@Email, @Password, @Salt, @Status)
+                                SELECT SCOPE_IDENTITY()";
+                return connection.QuerySingle<int>(query, model);
             }
         }
     }

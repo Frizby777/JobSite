@@ -1,4 +1,5 @@
-﻿using JobSite.Models;
+﻿using JobSite.BL.Auth;
+using JobSite.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,16 +7,19 @@ namespace JobSite.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
+        private readonly ICurrentUser currentUser;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ICurrentUser currentUser)
         {
-            _logger = logger;
+            this.logger = logger;
+            this.currentUser = currentUser;
         }
 
         public IActionResult Index()
         {
-            return View();
+            bool logged = currentUser.IsLoggedIn();
+            return View(logged);
         }
 
         public IActionResult Privacy()

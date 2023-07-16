@@ -4,7 +4,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddSingleton<JobSite.BL.Auth.IAuthBL, JobSite.BL.Auth.AuthBL>();
+builder.Services.AddSingleton<JobSite.BL.Auth.IEncrypt, JobSite.BL.Auth.Encrypt>();
+builder.Services.AddScoped<JobSite.BL.Auth.ICurrentUser, JobSite.BL.Auth.CurrentUser>();
 builder.Services.AddSingleton<JobSite.DAL.IAuthDAL, JobSite.DAL.AuthDAL>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+builder.Services.AddMvc().AddSessionStateTempDataProvider();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -20,8 +26,10 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();
 
 app.UseAuthorization();
+
 
 app.MapControllerRoute(
     name: "default",

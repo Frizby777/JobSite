@@ -2,6 +2,6 @@
 {
     public interface IAuthBL
     {
-        Task<int> CreateUser(JobSite.DAL.Models.UserModel user);
+        int CreateUser(JobSite.DAL.Models.UserModel user);
     }
 }
