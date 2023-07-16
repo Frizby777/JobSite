@@ -1,7 +1,7 @@
 ﻿@model RegisterViewModel
 
 @{
-    ViewData["Title"] = "Registration";
+    ViewData["Title"] = "Регистрация";
 }
 
 <div>
@@ -9,11 +9,13 @@
         <p>
             <label>Email</label>
             <input name="Email" type="text" value="@Model.Email" />
+            <div class="error">@Html.ValidationMessageFor(m => m.Email)</div>
         </p>
         <p>
             <label>Password</label>
             <input name="Password" type="password" />
+            <div class="error">@Html.ValidationMessageFor(m => m.Password)</div>
         </p>
-        <button>Registration</button>
+        <button>Зарегистрироваться</button>
     </form>
 </div>
